@@ -93,5 +93,18 @@ with open('test.urdf', 'w') as f:
 rob1 = p.loadURDF('test.urdf', (0, 0, 10))
 
 
-p.setRealTimeSimulation(1)
+p.setRealTimeSimulation(0)
 
+
+print("Simulation running. Press Ctrl+C in this terminal to stop.")
+
+try:
+    while True:
+        # If you used setRealTimeSimulation(1), this loop just keeps the window open
+        # If you used setRealTimeSimulation(0), this will also advance physics
+        p.stepSimulation()
+        time.sleep(1.0 / 240.0)
+except KeyboardInterrupt:
+    pass
+finally:
+    p.disconnect()
